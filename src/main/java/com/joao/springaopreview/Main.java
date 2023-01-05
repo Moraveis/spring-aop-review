@@ -20,6 +20,8 @@ public class Main {
 
         accountDAO.addAccount(new Account("Joao", "Basic"));
 
+        accountDAO.addAccount(new Account("Joao", "Basic"), true);
+
         context.close();
     }
 }

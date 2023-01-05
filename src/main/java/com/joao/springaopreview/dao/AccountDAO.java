@@ -11,6 +11,10 @@ public class AccountDAO {
     }
 
     public void addAccount(Account account) {
-        System.out.println(getClass() + ": Add Account with values");
+        System.out.println(getClass() + ": Add Account with values: " + account);
+    }
+
+    public void addAccount(Account account, boolean active) {
+        System.out.println(getClass() + ": Add Account with values: " + account + ", active: " + active);
     }
 }
