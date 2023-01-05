@@ -2,6 +2,7 @@ package com.joao.springaopreview;
 
 import com.joao.springaopreview.config.SpringConfig;
 import com.joao.springaopreview.dao.AccountDAO;
+import com.joao.springaopreview.dao.MembershipDAO;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Main {
@@ -11,6 +12,10 @@ public class Main {
         AccountDAO accountDAO = context.getBean("accountDAO", AccountDAO.class);
 
         accountDAO.addAccount();
+
+        MembershipDAO membershipDAO = context.getBean("membershipDAO", MembershipDAO.class);
+
+        membershipDAO.addAccount();
 
         context.close();
     }
