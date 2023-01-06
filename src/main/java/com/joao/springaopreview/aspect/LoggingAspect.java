@@ -19,6 +19,11 @@ public class LoggingAspect {
         System.out.println("\n====>>> Executing @before advice for pointcut");
     }
 
+    @Before("myPointCutMethod()")
+    public void anotherAspectAdvice() {
+        System.out.println("\n====>>> Executing @before advice for pointcut for a second advice");
+    }
+
     @Pointcut("execution(boolean com.joao.springaopreview.dao.MembershipDAO.addMember())")
     public void myPointCutMethod() {
     }
