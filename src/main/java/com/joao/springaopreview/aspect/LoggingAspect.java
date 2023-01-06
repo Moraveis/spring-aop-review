@@ -2,50 +2,30 @@ package com.joao.springaopreview.aspect;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
+@Order(2)
 public class LoggingAspect {
 
+    /*
     @Before("execution(* com.joao.springaopreview.dao.*.addAccount())")
     public void beforeAddAccountAdvice() {
         System.out.println("\n====>>> Executing @before advice on addAccount method");
     }
+    */
 
-    @Pointcut("execution(* com.joao.springaopreview.dao.*.*(..))")
-    public void forDaoPackage() {
-    }
-
-    @Pointcut("execution(* com.joao.springaopreview.dao.*.get*(..))")
-    public void getter() {
-    }
-
-    @Pointcut("execution(* com.joao.springaopreview.dao.*.set*(..))")
-    public void setter() {
-    }
-
-    @Pointcut("forDaoPackage() && !(getter()  || setter())")
-    public void combinedPointcutExpressions() {
-    }
-
-    @Before("myPointCutMethod()")
+    /*
+    @Before("com.joao.springaopreview.aspect.SharedAopExpressions.myPointCutMethod()")
     public void beforePointcut() {
         System.out.println("\n====>>> Executing @before advice for pointcut");
     }
+    */
 
-    @Before("combinedPointcutExpressions()")
+    @Before("com.joao.springaopreview.aspect.SharedAopExpressions.combinedPointcutExpressions()")
     public void applyingCombinedPointcut() {
-        System.out.println("\n====>>> Executing @before advice for pointcut COMBINED");
-    }
-
-    @Before("myPointCutMethod()")
-    public void anotherAspectAdvice() {
-        System.out.println("\n====>>> Executing @before advice for pointcut for a second advice");
-    }
-
-    @Pointcut("execution(boolean com.joao.springaopreview.dao.MembershipDAO.addMember())")
-    public void myPointCutMethod() {
+        System.out.println("\n====>>> Executing @before advice for pointcut for new Aspect LoggingAspect");
     }
 }
