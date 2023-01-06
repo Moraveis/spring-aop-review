@@ -22,6 +22,12 @@ public class Main {
 
         accountDAO.addAccount(new Account("Joao", "Basic"), true);
 
+        accountDAO.setName("foobar");
+        accountDAO.setServiceCode("silver");
+
+        String name = accountDAO.getName();
+        String serviceCode = accountDAO.getServiceCode();
+
         context.close();
     }
 }
