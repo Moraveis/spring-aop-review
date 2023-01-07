@@ -38,6 +38,12 @@ public class Main {
         List<Account> result =  accountDAO.findAccounts();
         System.out.println("Main Method result: " + result);
 
+        try {
+            accountDAO.findAccountsThrowException();
+        } catch (Exception e) {
+            System.out.println("Main app got a exception" + e.getMessage());
+        }
+
         // END @AFTER RETURN Aspect usage
 
         context.close();

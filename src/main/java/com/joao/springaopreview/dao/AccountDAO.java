@@ -52,4 +52,8 @@ public class AccountDAO {
 
         return accounts;
     }
+
+    public List<Account> findAccountsThrowException() throws Exception {
+        throw new Exception("Something was wrong");
+    }
 }

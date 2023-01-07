@@ -3,6 +3,7 @@ package com.joao.springaopreview.aspect;
 import com.joao.springaopreview.domain.Account;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -62,4 +63,13 @@ public class LoggingAspect {
             account.setName(account.getName().toUpperCase());
         });
     }
+
+    @AfterThrowing(pointcut = "execution(* com.joao.springaopreview.dao.AccountDAO.findAccountsThrowException(..))", throwing = "exception")
+    public void afterThrowingAccountsAdvice(JoinPoint joinPoint, Throwable exception) {
+        String method = joinPoint.getSignature().toShortString();
+        System.out.println("\n=====>>> Executing @AfterThrowing on method: " + method);
+        System.out.println("\n=====>>> The exception: " + exception);
+    }
+
+
 }
