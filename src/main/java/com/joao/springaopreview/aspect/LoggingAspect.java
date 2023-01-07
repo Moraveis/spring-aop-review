@@ -1,7 +1,9 @@
 package com.joao.springaopreview.aspect;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +27,11 @@ public class LoggingAspect {
     */
 
     @Before("com.joao.springaopreview.aspect.SharedAopExpressions.combinedPointcutExpressions()")
-    public void applyingCombinedPointcut() {
+    public void applyingCombinedPointcut(JoinPoint joinPoint) {
         System.out.println("\n====>>> Executing @before advice for pointcut for new Aspect LoggingAspect");
+
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+
+        System.out.println("Method: " + methodSignature);
     }
 }
