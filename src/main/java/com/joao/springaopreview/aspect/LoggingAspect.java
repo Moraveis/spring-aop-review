@@ -1,5 +1,6 @@
 package com.joao.springaopreview.aspect;
 
+import com.joao.springaopreview.domain.Account;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -33,5 +34,15 @@ public class LoggingAspect {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
 
         System.out.println("Method: " + methodSignature);
+
+        Object[] args = joinPoint.getArgs();
+        for (Object arg : args) {
+            System.out.println("Arg: " + arg);
+
+            if (arg instanceof Account) {
+                Account account = (Account) arg;
+                System.out.println("Account: name=" + account.getName() + ", level=" + account.getLevel());
+            }
+        }
     }
 }
