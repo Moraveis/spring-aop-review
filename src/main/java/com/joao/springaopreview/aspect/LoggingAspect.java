@@ -2,11 +2,14 @@ package com.joao.springaopreview.aspect;
 
 import com.joao.springaopreview.domain.Account;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Aspect
 @Component
@@ -44,5 +47,12 @@ public class LoggingAspect {
                 System.out.println("Account: name=" + account.getName() + ", level=" + account.getLevel());
             }
         }
+    }
+
+    @AfterReturning(pointcut = "execution(* com.joao.springaopreview.dao.AccountDAO.findAccounts(..))", returning = "result")
+    public void afterReturnFindAccountsAdvice(JoinPoint joinPoint, List<Account> result) {
+        String method = joinPoint.getSignature().toShortString();
+        System.out.println("\n=====>>> Executing @AfterReturning on method: " + method);
+        System.out.println("\n=====>>> result: " + result);
     }
 }

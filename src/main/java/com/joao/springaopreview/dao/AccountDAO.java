@@ -3,6 +3,9 @@ package com.joao.springaopreview.dao;
 import com.joao.springaopreview.domain.Account;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class AccountDAO {
 
@@ -39,5 +42,14 @@ public class AccountDAO {
     public void setServiceCode(String serviceCode) {
         System.out.println(getClass() + ": in setServiceCode()");
         this.serviceCode = serviceCode;
+    }
+
+    public List<Account> findAccounts() {
+        List<Account> accounts = new ArrayList<>();
+        accounts.add(new Account("First", "Basic"));
+        accounts.add(new Account("Second", "Intermediate"));
+        accounts.add(new Account("Third", "Advanced"));
+
+        return accounts;
     }
 }
