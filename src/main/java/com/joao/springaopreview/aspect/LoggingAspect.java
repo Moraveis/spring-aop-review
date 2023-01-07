@@ -54,5 +54,12 @@ public class LoggingAspect {
         String method = joinPoint.getSignature().toShortString();
         System.out.println("\n=====>>> Executing @AfterReturning on method: " + method);
         System.out.println("\n=====>>> result: " + result);
+        convertAccountNamesToUpperCase(result);
+    }
+
+    private void convertAccountNamesToUpperCase(List<Account> result) {
+        result.forEach(account -> {
+            account.setName(account.getName().toUpperCase());
+        });
     }
 }
