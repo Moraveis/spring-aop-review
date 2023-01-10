@@ -16,4 +16,8 @@ public class TrafficFortuneService {
 
         return "Expect heavy traffic";
     }
+
+    public String fortuneThrowException() throws Exception {
+        throw new Exception("Failed to get fortune.");
+    }
 }

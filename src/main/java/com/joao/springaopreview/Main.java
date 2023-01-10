@@ -14,7 +14,7 @@ public class Main {
 
     private static final Logger logger = Logger.getLogger(MembershipDAO.class.getName());
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
 
         // @BEFORE Aspect usage
@@ -54,6 +54,8 @@ public class Main {
         TrafficFortuneService fortuneService = context.getBean("trafficFortuneService", TrafficFortuneService.class);
 
         logger.info(fortuneService.getFortune());
+
+        logger.info(fortuneService.fortuneThrowException());
 
         context.close();
     }
