@@ -2,9 +2,11 @@ package com.joao.springaopreview.aspect;
 
 import com.joao.springaopreview.domain.Account;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -72,12 +74,29 @@ public class LoggingAspect {
         System.out.println("\n=====>>> The exception: " + exception);
     }
 
-    // runs before after throw and executes regardless of the result success or failure(exception)
+    // executes regardless of the result success or failure(exception)
     @After("execution(* com.joao.springaopreview.dao.AccountDAO.findAccountsThrowException(..))")
     public void afterFinallyFindAccountAdvice(JoinPoint joinPoint) {
         String method = joinPoint.getSignature().toShortString();
         System.out.println("\n=====>>> Executing @After on method: " + method);
     }
 
+    //
+    @Around("execution(* com.joao.springaopreview.service.*.getFortune(..))")
+    public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        String method = proceedingJoinPoint.getSignature().toShortString();
+        System.out.println("\n=====>>> Executing @Around on method: " + method);
+
+        long start = System.currentTimeMillis();
+
+        Object result = proceedingJoinPoint.proceed();
+
+        long stop = System.currentTimeMillis();
+
+        long duration = stop - start;
+        System.out.println("\n=====>>> Duration: : " + (duration / 1000.0) + " seconds.");
+
+        return result;
+    }
 
 }

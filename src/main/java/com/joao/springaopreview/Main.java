@@ -4,6 +4,7 @@ import com.joao.springaopreview.config.SpringConfig;
 import com.joao.springaopreview.dao.AccountDAO;
 import com.joao.springaopreview.dao.MembershipDAO;
 import com.joao.springaopreview.domain.Account;
+import com.joao.springaopreview.service.TrafficFortuneService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class Main {
         // END @BEFORE Aspect usage
 
         // @AFTER RETURN Aspect usage
-        List<Account> result =  accountDAO.findAccounts();
+        List<Account> result = accountDAO.findAccounts();
         System.out.println("Main Method result: " + result);
 
         try {
@@ -45,6 +46,10 @@ public class Main {
         }
 
         // END @AFTER RETURN Aspect usage
+
+        TrafficFortuneService fortuneService = context.getBean("trafficFortuneService", TrafficFortuneService.class);
+
+        System.out.println(fortuneService.getFortune());
 
         context.close();
     }
