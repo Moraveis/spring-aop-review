@@ -2,6 +2,7 @@ package com.joao.springaopreview.aspect;
 
 import com.joao.springaopreview.domain.Account;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -69,6 +70,13 @@ public class LoggingAspect {
         String method = joinPoint.getSignature().toShortString();
         System.out.println("\n=====>>> Executing @AfterThrowing on method: " + method);
         System.out.println("\n=====>>> The exception: " + exception);
+    }
+
+    // runs before after throw and executes regardless of the result success or failure(exception)
+    @After("execution(* com.joao.springaopreview.dao.AccountDAO.findAccountsThrowException(..))")
+    public void afterFinallyFindAccountAdvice(JoinPoint joinPoint) {
+        String method = joinPoint.getSignature().toShortString();
+        System.out.println("\n=====>>> Executing @After on method: " + method);
     }
 
 
