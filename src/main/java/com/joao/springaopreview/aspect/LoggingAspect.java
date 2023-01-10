@@ -103,7 +103,7 @@ public class LoggingAspect {
     }
 
     @Around("execution(* com.joao.springaopreview.service.*.fortuneThrowException(..))")
-    public Object aroundThrowFortune(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    public Object aroundHandleFortuneException(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         String method = proceedingJoinPoint.getSignature().toShortString();
         logger.info("\n=====>>> Executing @Around on method: " + method);
 
@@ -113,6 +113,22 @@ public class LoggingAspect {
         } catch (Exception e) {
             logger.warning(e.getMessage());
             result = "Reconnection...";
+        }
+
+        return result;
+    }
+
+    @Around("execution(* com.joao.springaopreview.service.*.fortuneThrowAnotherException(..))")
+    public Object aroundThrowFortuneException(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        String method = proceedingJoinPoint.getSignature().toShortString();
+        logger.info("\n=====>>> Executing @Around on method: " + method);
+
+        Object result = null;
+        try {
+            result = proceedingJoinPoint.proceed();
+        } catch (Exception e) {
+            logger.warning(e.getMessage());
+            throw e;
         }
 
         return result;

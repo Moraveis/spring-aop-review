@@ -20,4 +20,8 @@ public class TrafficFortuneService {
     public String fortuneThrowException() throws Exception {
         throw new Exception("Failed to get fortune.");
     }
+
+    public String fortuneThrowAnotherException() throws Exception {
+        throw new Exception("Failed to get fortune again.");
+    }
 }

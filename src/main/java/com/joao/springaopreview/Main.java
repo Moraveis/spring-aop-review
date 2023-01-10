@@ -57,6 +57,8 @@ public class Main {
 
         logger.info(fortuneService.fortuneThrowException());
 
+        logger.info(fortuneService.fortuneThrowAnotherException());
+
         context.close();
     }
 }
