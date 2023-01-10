@@ -5,42 +5,45 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Component
 public class AccountDAO {
+
+    private final Logger logger = Logger.getLogger(AccountDAO.class.getName());
 
     private String name;
     private String serviceCode;
 
     public void addAccount() {
-        System.out.println(getClass() + ": Doing my DB work: adding account");
+        logger.info(getClass() + ": Doing my DB work: adding account");
     }
 
     public void addAccount(Account account) {
-        System.out.println(getClass() + ": Add Account with values: " + account);
+        logger.info(getClass() + ": Add Account with values: " + account);
     }
 
     public void addAccount(Account account, boolean active) {
-        System.out.println(getClass() + ": Add Account with values: " + account + ", active: " + active);
+        logger.info(getClass() + ": Add Account with values: " + account + ", active: " + active);
     }
 
     public String getName() {
-        System.out.println(getClass() + ": in getName()");
+        logger.info(getClass() + ": in getName()");
         return name;
     }
 
     public void setName(String name) {
-        System.out.println(getClass() + ": in setName()");
+        logger.info(getClass() + ": in setName()");
         this.name = name;
     }
 
     public String getServiceCode() {
-        System.out.println(getClass() + ": in getServiceCode()");
+        logger.info(getClass() + ": in getServiceCode()");
         return serviceCode;
     }
 
     public void setServiceCode(String serviceCode) {
-        System.out.println(getClass() + ": in setServiceCode()");
+        logger.info(getClass() + ": in setServiceCode()");
         this.serviceCode = serviceCode;
     }
 

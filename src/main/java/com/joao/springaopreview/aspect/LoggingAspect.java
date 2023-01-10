@@ -14,41 +14,44 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @Aspect
 @Component
 @Order(2)
 public class LoggingAspect {
 
+    private final Logger logger = Logger.getLogger(LoggingAspect.class.getName());
+
     /*
     @Before("execution(* com.joao.springaopreview.dao.*.addAccount())")
     public void beforeAddAccountAdvice() {
-        System.out.println("\n====>>> Executing @before advice on addAccount method");
+        logger.info("\n====>>> Executing @before advice on addAccount method");
     }
     */
 
     /*
     @Before("com.joao.springaopreview.aspect.SharedAopExpressions.myPointCutMethod()")
     public void beforePointcut() {
-        System.out.println("\n====>>> Executing @before advice for pointcut");
+        logger.info("\n====>>> Executing @before advice for pointcut");
     }
     */
 
     @Before("com.joao.springaopreview.aspect.SharedAopExpressions.combinedPointcutExpressions()")
     public void applyingCombinedPointcut(JoinPoint joinPoint) {
-        System.out.println("\n====>>> Executing @before advice for pointcut for new Aspect LoggingAspect");
+        logger.info("\n====>>> Executing @before advice for pointcut for new Aspect LoggingAspect");
 
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
 
-        System.out.println("Method: " + methodSignature);
+        logger.info("Method: " + methodSignature);
 
         Object[] args = joinPoint.getArgs();
         for (Object arg : args) {
-            System.out.println("Arg: " + arg);
+            logger.info("Arg: " + arg);
 
             if (arg instanceof Account) {
                 Account account = (Account) arg;
-                System.out.println("Account: name=" + account.getName() + ", level=" + account.getLevel());
+                logger.info("Account: name=" + account.getName() + ", level=" + account.getLevel());
             }
         }
     }
@@ -56,8 +59,8 @@ public class LoggingAspect {
     @AfterReturning(pointcut = "execution(* com.joao.springaopreview.dao.AccountDAO.findAccounts(..))", returning = "result")
     public void afterReturnFindAccountsAdvice(JoinPoint joinPoint, List<Account> result) {
         String method = joinPoint.getSignature().toShortString();
-        System.out.println("\n=====>>> Executing @AfterReturning on method: " + method);
-        System.out.println("\n=====>>> result: " + result);
+        logger.info("\n=====>>> Executing @AfterReturning on method: " + method);
+        logger.info("\n=====>>> result: " + result);
         convertAccountNamesToUpperCase(result);
     }
 
@@ -70,22 +73,22 @@ public class LoggingAspect {
     @AfterThrowing(pointcut = "execution(* com.joao.springaopreview.dao.AccountDAO.findAccountsThrowException(..))", throwing = "exception")
     public void afterThrowingAccountsAdvice(JoinPoint joinPoint, Throwable exception) {
         String method = joinPoint.getSignature().toShortString();
-        System.out.println("\n=====>>> Executing @AfterThrowing on method: " + method);
-        System.out.println("\n=====>>> The exception: " + exception);
+        logger.info("\n=====>>> Executing @AfterThrowing on method: " + method);
+        logger.info("\n=====>>> The exception: " + exception);
     }
 
     // executes regardless of the result success or failure(exception)
     @After("execution(* com.joao.springaopreview.dao.AccountDAO.findAccountsThrowException(..))")
     public void afterFinallyFindAccountAdvice(JoinPoint joinPoint) {
         String method = joinPoint.getSignature().toShortString();
-        System.out.println("\n=====>>> Executing @After on method: " + method);
+        logger.info("\n=====>>> Executing @After on method: " + method);
     }
 
     //
     @Around("execution(* com.joao.springaopreview.service.*.getFortune(..))")
     public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         String method = proceedingJoinPoint.getSignature().toShortString();
-        System.out.println("\n=====>>> Executing @Around on method: " + method);
+        logger.info("\n=====>>> Executing @Around on method: " + method);
 
         long start = System.currentTimeMillis();
 
@@ -94,7 +97,7 @@ public class LoggingAspect {
         long stop = System.currentTimeMillis();
 
         long duration = stop - start;
-        System.out.println("\n=====>>> Duration: : " + (duration / 1000.0) + " seconds.");
+        logger.info("\n=====>>> Duration: : " + (duration / 1000.0) + " seconds.");
 
         return result;
     }

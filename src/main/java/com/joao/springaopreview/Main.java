@@ -8,8 +8,12 @@ import com.joao.springaopreview.service.TrafficFortuneService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 public class Main {
+
+    private static final Logger logger = Logger.getLogger(MembershipDAO.class.getName());
+
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
 
@@ -37,19 +41,19 @@ public class Main {
 
         // @AFTER RETURN Aspect usage
         List<Account> result = accountDAO.findAccounts();
-        System.out.println("Main Method result: " + result);
+        logger.info("Main Method result: " + result);
 
         try {
             accountDAO.findAccountsThrowException();
         } catch (Exception e) {
-            System.out.println("Main app got a exception" + e.getMessage());
+            logger.info("Main app got a exception" + e.getMessage());
         }
 
         // END @AFTER RETURN Aspect usage
 
         TrafficFortuneService fortuneService = context.getBean("trafficFortuneService", TrafficFortuneService.class);
 
-        System.out.println(fortuneService.getFortune());
+        logger.info(fortuneService.getFortune());
 
         context.close();
     }
